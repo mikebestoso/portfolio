@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<link rel="stylesheet" type="text/css" href="project.css" />
+<link rel="stylesheet" href="jquery-ui.min.css" />
+<script src="jquery.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script>
+$(document).ready(function() {
+	var newPhoto = new Image();
+	newPhoto.src = "chair text.jpg";
+	var oldSrc=$('.one').attr('src');
+	$('.one').hover(
+		function() {
+			$(this).attr('src', newPhoto.src);
+		},
+		function() {
+			$(this).attr('src', oldSrc);
+	});
+	var nPhoto = new Image();
+	nPhoto.src = "bridge text.jpg";
+	var oSrc=$('.two').attr('src');
+	$('.two').hover(
+		function() {
+			$(this).attr('src', nPhoto.src);
+		},
+		function() {
+			$(this).attr('src', oSrc);
+	});
+	$('#menu').menu({
+  	  position: {
+        my: 'center top',
+        at: 'center bottom'
+      },
+      icons: { 
+        submenu: 'ui-icon-triangle-1-s'
+      }
+  });
+});
+
+</script>
+
+<head>
+	<title>Photography</title>
+</head>
+
+<body style="height:100%;width:100%;overflow:auto; scrollbar-base-color:gold;">
+
+	<h1>Mike Bestoso Photography</h1>
+	<div id="mainwrapper">
+ 	<header> 
+	<ul id="menu">
+	<li><a class="dropDown">Menu</a>
+		 <a class="dropButton" ></a>
+			<ul>
+			<li><a href="http://ceweb.uml.edu/mbest37301/javascript/index/index.html" title="Link" class="index">Index Page</a></li> 
+			<li><a href="http://ceweb.uml.edu/mbest37301/jsProject/project1.html" title="Link" class="Home">Project 1</a> </li>
+			<li><a href="http://ceweb.uml.edu/mbest37301/jsproject/project2.html" title="Link" class="contact">Contact Me</a> </li>
+		</ul>
+	</li>
+	</ul>
+  </header>
+
+	<div class="sum">
+        <h3>Newport Photo's</h3>
+	    <p>Newport is Located on the Southern shore of Aquidneck Island in Rhode Island. Lorem ipsum dolor sit amet, sea ne zril equidem reprehendunt, prima etiam timeam at vix. Ut illud tritani consequuntur eam. Te hendrerit temporibus has, vis in paulo consequat. Ex qui alii persius, viris dissentiunt has cu. Simul voluptua temporibus id cum, ius suscipit dissentias no. </p>
+	</div>
+    <div id="bannerimage">
+       <h3>Sunset</h3>
+       <img src = "chair.jpg" class="one" onMouseOver="MouseRollover(this)" 
+		onMouseOut="MouseOut(this)" />
+    </div>
+    <div id="bannerimageLast">
+       <h3>Night</h3>
+       <img src = "bridge.jpg" class="two" onMouseOver="MouseRollover(this)" 
+		onMouseOut="MouseOut(this)" />
+    </div>
+   
+	<footer>
+		&emsp;Phone Number: (401)555-3456
+		&emsp;&emsp;Email: stos907@gmail.com
+		&emsp;&emsp;Address: 52 This Isn't My Street Avenue, Warren, Rhode Island, 02885
+    </footer>
+    
+</body>
+</html>
+
