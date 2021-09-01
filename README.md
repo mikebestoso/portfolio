@@ -6,5 +6,5 @@ List of currently included projects:
 2.) Database coursework: website from coursework using MySQL as a database.Management section on handling data input to the database.
 3.) Java Script coursework: website from coursework where I had an introduction to Java Script.
 
-
+4.) Changing things up
 
