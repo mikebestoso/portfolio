@@ -16,6 +16,8 @@ from bullet import Bullet_three
 from alien import Alien
 from power_up_r import PowerUp
 from background import Background_Two
+
+#This comment is only her for practice using GitHub
 	
 class AlienInvasion:
 	"""Overall class to manage game assets and behavior"""	
