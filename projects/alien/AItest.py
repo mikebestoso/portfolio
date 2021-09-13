@@ -19,6 +19,8 @@ from background import Background_Two
 
 #This comment is only her for practice using GitHub
 #Adding a new line to practice w/ GitHub
+#Practice w/ GitHub, not merging to master 
+#Merge now
 	
 class AlienInvasion:
 	"""Overall class to manage game assets and behavior"""	
