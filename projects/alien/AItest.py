@@ -22,7 +22,7 @@ from background import Background_Two
 #Practice w/ GitHub, not merging to master 
 #Merge now
 #Again!
-#Maerg now again!!
+#Merge now again!!
 	
 class AlienInvasion:
 	"""Overall class to manage game assets and behavior"""	
