@@ -16,13 +16,6 @@ from bullet import Bullet_three
 from alien import Alien
 from power_up_r import PowerUp
 from background import Background_Two
-
-#This comment is only her for practice using GitHub
-#Adding a new line to practice w/ GitHub
-#Practice w/ GitHub, not merging to master 
-#Merge now
-#Again!
-#Merge now again!!
 	
 class AlienInvasion:
 	"""Overall class to manage game assets and behavior"""	
@@ -272,7 +265,6 @@ class AlienInvasion:
 				self.power_ups.empty()
 				#print("bottom")
 				break
-			
 			
 	def _change_fleet_direction(self):
 		"""Drop the entire fleet and change the fleet's direction"""
