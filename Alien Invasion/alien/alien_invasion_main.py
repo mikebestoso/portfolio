@@ -50,7 +50,6 @@ class AlienInvasion:
 		self._create_fleet()
 		self.power_ups = pygame.sprite.Group()
 		
-	
 	#the game is controlled by the run_game method
 	def run_game( self):
 		"""Start the main loop of the game"""
@@ -138,7 +137,7 @@ class AlienInvasion:
 		#Update bullet position
 		self.bullets.update()
 		
-		#Get rid of bullets that have disappeared
+		#Remove bullets that have disappeared
 		for bullet in self.bullets.copy():
 			if bullet.check_edges():
 				self.bullets.remove(bullet)
@@ -148,6 +147,7 @@ class AlienInvasion:
 	def _update_bullets_two(self):
 		self.bullets_two.update()
 		
+		#Remove bullets that have disappeared
 		for bullet_two in self.bullets_two.copy():
 			if bullet_two.check_edges():
 				self.bullets_two.remove(bullet_two)
@@ -157,6 +157,7 @@ class AlienInvasion:
 	def _update_bullets_three(self):
 		self.bullets_three.update()
 		
+		#Remove bullets that have disappeared
 		for bullet_three in self.bullets_three.copy():
 			if bullet_three.check_edges():
 				self.bullets_three.remove(bullet_three)
@@ -180,7 +181,6 @@ class AlienInvasion:
 			self.bullets.empty()
 			self._create_fleet()
 
-			
 	def _ship_hit(self):
 		"""Respond to the ship being hit by an alien"""
 		if self.stats.ships_left > 0:
@@ -199,7 +199,8 @@ class AlienInvasion:
 			self.stats.game_active = False
 			
 	def _ship_hit_power_up(self):
-		print("ship and power up collison")
+		print("ship and power up collison") 
+			#print statement used to test code. can be removed
 		self.power_ups.empty()
 		self._ship_hit_power_up = True
 		return 
@@ -222,7 +223,6 @@ class AlienInvasion:
 		for row_number in range(number_rows):	
 			for alien_number in range(number_aliens_x):
 				self._create_alien(alien_number, row_number)
-			
 			
 	def _create_alien(self, alien_number, row_number):
 		#Create an alien and place it in the row
@@ -310,24 +310,26 @@ class AlienInvasion:
 		#Make the most recently drawn screen visible
 		pygame.display.flip()
 		
-def something(ai, random_time):
+def power_one_thread(ai, random_time):
 	time.sleep(random_time)
 	print("In something function")
+		#test to make sure the thread has started. can be removed
 	ai._create_power_up()
 
-def something2(ai, random_time2):
+def power_two_thread(ai, random_time2):
 	time.sleep(random_time2)
 	print("In something_2 function")
+		#test to make sure the thread has started. can be removed
 	ai._create_power_up()
 	
 if __name__ == '__main__':
 	random_time = randint(5, 15)
 	random_time2 = randint(16, 25)
 	ai = AlienInvasion()
-	t2 = threading.Thread(target=something, args=(ai, random_time))
+	t2 = threading.Thread(target=power_one_thread, args=(ai, random_time))
 	t2.start()
 	
-	t3 = threading.Thread(target=something2, args=(ai, random_time2))
+	t3 = threading.Thread(target=power_two_thread, args=(ai, random_time2))
 	t3.start()
 	
 	ai.run_game()
