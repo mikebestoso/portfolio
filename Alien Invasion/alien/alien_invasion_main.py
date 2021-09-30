@@ -133,8 +133,8 @@ class AlienInvasion:
 			self.bullets_three.add(new_bullet_three)
 			
 	def _update_bullets(self):
-		"""Update the position of the bullets and get rid of old bullets"""
-		#Update bullet position
+		"""Update the position of the group of bullets and get rid of old bullets from the first group"""
+		#Update bullet group positions
 		self.bullets.update()
 		
 		#Remove bullets that have disappeared
@@ -145,9 +145,11 @@ class AlienInvasion:
 		self._check_bullet_collisions()
 		
 	def _update_bullets_two(self):
+		"""Update the position of the second group of bullets and get rid of old bullets from the second group"""
+		#Update bullet group two positions
 		self.bullets_two.update()
 		
-		#Remove bullets that have disappeared
+		#Remove group two bullets that have disappeared
 		for bullet_two in self.bullets_two.copy():
 			if bullet_two.check_edges():
 				self.bullets_two.remove(bullet_two)
@@ -155,6 +157,8 @@ class AlienInvasion:
 		self._check_bullet_collisions()
 		
 	def _update_bullets_three(self):
+		"""Update the position of the third group of bullets and get rid of old bullets from the third group"""
+		#Update bullet group three positions
 		self.bullets_three.update()
 		
 		#Remove bullets that have disappeared
