@@ -1,21 +1,5 @@
-@charset "UTF-8";
-
-wrapper {
-	border:thin dotted sandybrown;
-}
-topHeader {
-	background:black;
-	font-size:30px; 
-	text-align:center;
-}
-footer {
-	background: navy;text-align:center;
-	padding:5px; 
-	border-top:thin solid black;
-}
-main {
-	border-left:thin dotted #DBB900;
-}
-maincontent {
-	background:black;
-}
+/* CSS Document */
+#wrapper{border:thin solid black}
+#topHeader{font-size:24px; text-align:center}
+#footer{text-align:center; padding:5px; border-top:thin solid black}
+#main {border-left:thin solid black}
