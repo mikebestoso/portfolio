@@ -3,7 +3,7 @@
 <head>
 	<title>Main Index</title>
 		<link href="../../includes/bootstrap/css/bootstrap.css" rel="stylesheet" />
-		<link href="../../includes/css/mycss.css" rel="stylesheet" />
+		<link href="../../includes/css/class.css" rel="stylesheet" />
 		<script src="../../includes/js/jQuery/ jquery-1.11.3.min.js" type="text/javascript"></script>
 		<script src="../../includes/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 </head>

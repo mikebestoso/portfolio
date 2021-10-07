@@ -37,7 +37,7 @@ class AlienInvasion:
 		#display.set_mode() represents the entire game window
 		pygame.display.set_caption("Alien Invasion")
 		
-		#Create an instance to t=store game statistics
+		#create an instance to t=store game statistics
 		self.stats = GameStats(self)
 		
 		#import 'Ship' and make an instance of 'Ship' after the screen has been created
@@ -84,7 +84,11 @@ class AlienInvasion:
 				self._check_keyup_events(event)
 	
 	def _check_keydown_events(self, event):
-		#respond to keypresses
+		"""Respond to keypresses"""
+		#directional keypresses move the ship up, down, left and right
+				#right arrow key is represented by pygame_K_RIGHT
+				#if the arrow key was pressed we move the ship to the right by increasing the value of self.ship.rect.x by 1
+					#can increase self.ship.rect.x by more than 1 at a time if needed, by changing the incrimented value
 		if event.key == pygame.K_RIGHT:
 			self.ship.moving_right = True
 		elif event.key == pygame.K_LEFT:
@@ -93,16 +97,20 @@ class AlienInvasion:
 			self.ship.moving_down = True
 		elif event.key == pygame.K_UP:
 			self.ship.moving_up = True
+		#press q on keyboard to quit the game
 		elif event.key == pygame.K_q:
 			sys.exit()
+		#press space bar to fire ship's bullets
 		elif event.key == pygame.K_SPACE:
 			self._fire_bullet()
+			#power_ups will add extra bullets for each space bar key press
 			if self._ship_hit_power_up == True:
 				self._fire_bullet_two()
 				self._fire_bullet_three()
 					
 	def _check_keyup_events(self, event):
-		#respond to key releases
+		"""Respond to key releases"""
+		#directional keypress release stops the ship from moving up, down, left and right
 		if event.key == pygame.K_RIGHT:
 			self.ship.moving_right = False
 		elif event.key == pygame.K_LEFT:
@@ -111,10 +119,6 @@ class AlienInvasion:
 			self.ship.moving_down = False
 		elif event.key == pygame.K_UP:
 			self.ship.moving_up = False
-			#Move the ship to the right
-				#right arrow key is represented by pygame_K_RIGHT
-				#if the arrow key was pressed we move the ship to the right by increasing the value of self.ship.rect.x by 1
-					#can increase self.ship.rect.x by more than 1 at a time if needed, by changing the incrimented value
 	
 	def _fire_bullet(self):
 		"""Create a new bullet and add it to the bullets group"""
@@ -123,21 +127,23 @@ class AlienInvasion:
 			self.bullets.add(new_bullet)
 	
 	def _fire_bullet_two(self):
+		"""Create a new bullet and add it to the bullet_two group"""
 		if len(self.bullets_two) < self.settings.bullets_allowed:
 			new_bullet_two = Bullet_two(self)
 			self.bullets_two.add(new_bullet_two)
 	
 	def _fire_bullet_three(self):
+		"""Create a new bullet and add it to the bullet_three group"""
 		if len(self.bullets_three) < self.settings.bullets_allowed:
 			new_bullet_three = Bullet_three(self)
 			self.bullets_three.add(new_bullet_three)
 			
 	def _update_bullets(self):
 		"""Update the position of the group of bullets and get rid of old bullets from the first group"""
-		#Update bullet group positions
+		#update bullet group positions
 		self.bullets.update()
 		
-		#Remove bullets that have disappeared
+		#remove bullets that have disappeared
 		for bullet in self.bullets.copy():
 			if bullet.check_edges():
 				self.bullets.remove(bullet)
@@ -146,10 +152,10 @@ class AlienInvasion:
 		
 	def _update_bullets_two(self):
 		"""Update the position of the second group of bullets and get rid of old bullets from the second group"""
-		#Update bullet group two positions
+		#update bullet group two positions
 		self.bullets_two.update()
 		
-		#Remove group two bullets that have disappeared
+		#remove group two bullets that have disappeared
 		for bullet_two in self.bullets_two.copy():
 			if bullet_two.check_edges():
 				self.bullets_two.remove(bullet_two)
@@ -158,10 +164,10 @@ class AlienInvasion:
 		
 	def _update_bullets_three(self):
 		"""Update the position of the third group of bullets and get rid of old bullets from the third group"""
-		#Update bullet group three positions
+		#update bullet group three positions
 		self.bullets_three.update()
 		
-		#Remove bullets that have disappeared
+		#remove bullets that have disappeared
 		for bullet_three in self.bullets_three.copy():
 			if bullet_three.check_edges():
 				self.bullets_three.remove(bullet_three)
@@ -181,55 +187,59 @@ class AlienInvasion:
 		collisions = pygame.sprite.groupcollide(self.bullets_three, self.power_ups, True, False)
 		
 		if not self.aliens:
-			#Destroy existing bullets and create a new fleet
+			#destroy existing bullets and create a new fleet
 			self.bullets.empty()
 			self._create_fleet()
 
 	def _ship_hit(self):
 		"""Respond to the ship being hit by an alien"""
 		if self.stats.ships_left > 0:
-			#Decrement ships_left
+			#decrement ships_left
 			self.stats.ships_left -= 1
-			#Get rid of remaining aliens when the player runs out of ships
+			#get rid of remaining aliens when the player runs out of ships
 			if self.stats.ships_left < 0:
 				self.aliens.empty()
-			#Get rid of remaining bullets
+			#get rid of remaining bullets
 			self.bullets.empty()
-			#Create a new fleet and center the ship
+			#create a new fleet and center the ship
 			self.ship.center_ship()
-			#Pause
+			#pause
 			time.sleep(0.5)
 		else:
 			self.stats.game_active = False
 			
 	def _ship_hit_power_up(self):
+		"""Respond to ship being hit by a power up"""
 		print("ship and power up collison") 
 			#print statement used to test code. can be removed
+			
+		#remove power up when collision is deteccted
 		self.power_ups.empty()
+		#activate the power up allowing the ship to fire three bullets at once
 		self._ship_hit_power_up = True
 		return 
 	
 	def _create_fleet(self):
 		"""Create the fleet of aliens"""
-		#Create an alien and find the number of aliensin a row
-		#Spacing between between each alien is equal to the width of a single alien
+		#create an alien and find the number of aliensin a row
+		#spacing between between each alien is equal to the width of a single alien
 		alien = Alien(self)
 		alien_width, alien_height = alien.rect.size
 		available_space_x = self.settings.screen_width - (2 * alien_width)
 		number_aliens_x = available_space_x // (2 * alien_width)
 		
-		#Determine the number of rows of aliens that can fit onto the screen
+		#determine the number of rows of aliens that can fit onto the screen
 		ship_height = self.ship.rect.height
 		available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
 		number_rows = available_space_y // (2 * alien_height)
 		
-		#Create the the full fleet of aliens
+		#create the the full fleet of aliens
 		for row_number in range(number_rows):	
 			for alien_number in range(number_aliens_x):
 				self._create_alien(alien_number, row_number)
 			
 	def _create_alien(self, alien_number, row_number):
-		#Create an alien and place it in the row
+		"""Create an alien and place it in the row"""
 		alien = Alien(self)
 		alien_width, alien_height = alien.rect.size
 		alien.x = alien_width + 2 * alien_width * alien_number
@@ -238,7 +248,7 @@ class AlienInvasion:
 		self.aliens.add(alien)
 	
 	def _create_power_up(self):
-		#creates a power up
+		"""Creates a power up"""
 		power_up = PowerUp(self)
 		power_up_width, power_up_height = power_up.rect.size
 		
@@ -256,11 +266,12 @@ class AlienInvasion:
 		screen_rect = self.screen.get_rect()
 		for alien in self.aliens.sprites():
 			if alien.rect.bottom >= screen_rect.bottom:
-				#Treat this the same as if the ship got hit
+				#treat this the same as if the ship got hit
 				self._ship_hit()
 				break
 	
 	def _check_power_up_bottom(self):
+		"""Detect when the power up reaches the screen's lower boundary"""
 		screen_rect = self.screen.get_rect()
 		
 		#remove power up if it hits the bottom of the screen
@@ -277,22 +288,23 @@ class AlienInvasion:
 		self.settings.fleet_direction *= -1
 			
 	def _update_aliens(self):
-		"""checks if the fleet has reached an edge, then updates the position of all aliens in the fleet"""
+		"""Checks if the fleet has reached an edge, then updates the position of all aliens in the fleet"""
 		self._check_fleet_edges()
 		self.aliens.update()
 		
-		#Look for alien-ship collisions
+		#look for alien-ship collisions
 		if pygame.sprite.spritecollideany(self.ship, self.aliens):
 			self._ship_hit()
 			
-		#Look for aliens hitting the bottom of the screen
+		#look for aliens hitting the bottom of the screen
 		self._check_aliens_bottom()
 		
 	def _update_power_up(self):
+		"""Checks if the power up has reached the lower boundary, or if there is a ship and power up collision"""
 		self.power_ups.update()
 		self._check_power_up_bottom()
 		
-		#Look for powerup-ship collisions
+		#look for powerup-ship collisions
 		if pygame.sprite.spritecollideany(self.ship, self.power_ups):
 			self._ship_hit_power_up()
 
@@ -311,16 +323,18 @@ class AlienInvasion:
 			bullet_three.draw_bullet()
 		self.aliens.draw(self.screen)
 
-		#Make the most recently drawn screen visible
+		#make the most recently drawn screen visible
 		pygame.display.flip()
 		
 def power_one_thread(ai, random_time):
+	"""Thread for creating the first power up"""
 	time.sleep(random_time)
 	print("In something function")
 		#test to make sure the thread has started. can be removed
 	ai._create_power_up()
 
 def power_two_thread(ai, random_time2):
+	"""Thread for creating the second power up"""
 	time.sleep(random_time2)
 	print("In something_2 function")
 		#test to make sure the thread has started. can be removed
